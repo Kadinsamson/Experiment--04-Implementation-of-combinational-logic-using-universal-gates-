@@ -44,10 +44,14 @@ RegisterNumber: 212221230044
 */
 NAND GATE PROGRAM:
 
-module un1(a,b,c,d,f);
-input a,b,c,d;
-output f;
-assign  f=((~(~c&b&a))&(~(~d&c&a))&(~(c&(~b)&a)));
+module Combination(A,B,C,D,F);
+input A,B,C,D;
+output F;
+wire P,Q,R;
+assign P = C&(~B)&(~A);
+assign Q = D&(~C)&(~A);
+assign R = (~C)&B&(~A);
+assign F = (~P&~Q&~R);
 endmodule
 ```
 ## Output:
@@ -70,10 +74,15 @@ RegisterNumber:  212221230044
 
 
 NOR GATE PROGRAM:
-module nor1(a,b,c,d,f);
-input a,b,c,d;
-output f;
-assign  f=(~(~((c&(~b)&a)|(d&(~c)&a)|(c&(~b)&a))));
+module norcombination(A,B,C,D,F);
+input A,B,C,D;
+output F;
+wire P,Q,R,S;
+assign P = C&(~B)&A;
+assign Q = D&(~C)&A;
+assign R = C&(~B)&A;
+assign S = ~(P|Q|R);
+not(F,S);
 endmodule
 ```
 ## Output:
